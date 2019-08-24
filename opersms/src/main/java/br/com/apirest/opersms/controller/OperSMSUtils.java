@@ -1,17 +1,19 @@
 package br.com.apirest.opersms.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class OperSMSUtils {
 
-	public static Boolean validaData(String dataRecebida) throws ParseException {
-		Date data = new SimpleDateFormat("dd-MM-yyyy").parse(dataRecebida);
-		if (!data.equals(new Date().getTime())) {
-			return false;
-		}
-		return true;
+	public static Boolean validaData(LocalDateTime dataRecebida) throws ParseException {
+		LocalDateTime time = LocalDateTime.now();
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String dataFormt = dataRecebida.format(format);
+		
+		String dataAtual = time.format(format);
+		
+		return dataFormt.equals(dataAtual);
 	}
 
 }
