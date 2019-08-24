@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.apirest.opersms.modelo.OperSMS;
-import br.com.apirest.opersms.repositorio.OperSMSRepository;
+import br.com.apirest.opersms.model.OperSMS;
+import br.com.apirest.opersms.repository.OperSMSRepository;
 
 @Service
 public class OperSMSServiceImpl implements OperSMSService{

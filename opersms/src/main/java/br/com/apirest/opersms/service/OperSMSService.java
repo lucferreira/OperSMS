@@ -3,7 +3,7 @@ package br.com.apirest.opersms.service;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.apirest.opersms.modelo.OperSMS;
+import br.com.apirest.opersms.model.OperSMS;
 
 public interface OperSMSService {
 	

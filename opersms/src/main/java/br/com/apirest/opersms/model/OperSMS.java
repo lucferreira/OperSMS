@@ -1,6 +1,4 @@
-package br.com.apirest.opersms.modelo;
-
-import java.time.LocalDate;
+package br.com.apirest.opersms.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -23,9 +22,11 @@ public class OperSMS {
 	private Long idsms;
 	@NotNull
 	@NotEmpty
-	private LocalDate datasms;
+	@Max(value = 10)
+	private String datasms;
 	@NotNull
 	@NotEmpty
-	@Max(value = 160)
+	@Size(min = 1, max = 160)
 	private String textosms;
+	
 }
