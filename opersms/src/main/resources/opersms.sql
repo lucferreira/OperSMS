@@ -2,6 +2,6 @@ DROP TABLE IF EXISTS opersms;
 
 CREATE TABLE opersms(
 	idsms INTEGER AUTO_INCREMENT PRIMARY KEY,
-	datasms TIMESTAMP,
-	textosms VARCHAR (160)
+	datasms TIMESTAMP NOT NULL,
+	textosms VARCHAR (160) NOT NULL
 );

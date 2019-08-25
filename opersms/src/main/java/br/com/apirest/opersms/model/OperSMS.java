@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,7 +24,6 @@ public class OperSMS {
 	private LocalDateTime datasms;
 	@Size(min = 1, max = 160)
 	@NotNull
-	@NotEmpty
 	private String textosms;
 	
 }

@@ -6,15 +6,17 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.apirest.opersms.model.OperSMS;
 import br.com.apirest.opersms.service.OperSMSService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -28,20 +30,24 @@ public class OperSMSController {
 
 	@ApiOperation(value = "EndPoint responsável por listar SMS enviados")
 	@GetMapping(value = "/opersms/all")
-	public List<OperSMS> OperSMSTodos() {
+	public ResponseEntity<List<OperSMS>> OperSMSTodos() {
 		List<OperSMS> operSMSEnviados = operSMSService.findAll();
-		return operSMSEnviados;
+		if(operSMSEnviados.equals(null)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum SMS registrado.");
+		}
+		return ResponseEntity.ok(operSMSEnviados);
 	}
 
 	@ApiOperation(value = "EndPoint responsável por salvar SMS enviado")
 	@PostMapping(value = "/opersms")
-	public OperSMS saveOperSMS(@Valid @RequestBody OperSMS operSMS) throws ParseException {
+	public ResponseEntity<OperSMS> saveOperSMS(@Valid @RequestBody OperSMS operSMS) throws ParseException {
 		Boolean data = OperSMSUtils.validaData(operSMS.getDatasms());
 		OperSMS oper = null;
-		if (data == true) {
-			oper = operSMSService.save(operSMS);
+		if (!data == true) {
+			return null;
 		}
-		return oper;
+		oper = operSMSService.save(operSMS);
+		return ResponseEntity.ok(oper);
 	}
 
 }
