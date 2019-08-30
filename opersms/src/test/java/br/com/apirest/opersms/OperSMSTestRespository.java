@@ -1,6 +1,10 @@
 package br.com.apirest.opersms;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +12,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import br.com.apirest.opersms.controller.OperSMSController;
@@ -49,18 +53,20 @@ public class OperSMSTestRespository {
 		
 	@Test
 	public void endpointGetAll() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/sms/opersms/all"))
-		.andExpect(MockMvcResultMatchers.status().isOk());
+//		mockMvc.perform(MockMvcRequestBuilders.get("/sms/opersms/all"))
+//		.andExpect(MockMvcResultMatchers.status().isOk());
+		ResponseEntity<List<OperSMS>> response = operSMSController.operSMSTodos();
+		assertEquals(HttpStatus.ACCEPTED, response.getStatusCode().ACCEPTED);
 	}
 	@Test
 	public void endpointGetForId() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/sms/operSMS/",operSMS.getIdsms()))
-		.andExpect(MockMvcResultMatchers.status().isOk());
+		ResponseEntity<OperSMS> response = operSMSController.saveOperSMS(operSMS);
+		assertEquals(HttpStatus.ACCEPTED, response.getStatusCode().ACCEPTED);
 	}
 	@Test
 	public void endpointPost() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/sms/operSMS",operSMS))
-		.andExpect(MockMvcResultMatchers.status().isOk());
+		ResponseEntity<Optional<OperSMS>> response = operSMSController.operSMSId(operSMS.getIdsms());
+		assertEquals(HttpStatus.ACCEPTED, response.getStatusCode().ACCEPTED);
 	}
 	
 }
